@@ -4,6 +4,8 @@ data<- read.table("mietspiegel2015.csv", header = TRUE)
 
 str(data)
 
+
+
 #summary(data)
 #plot(data$wfl, data$nmqm)
 
@@ -21,10 +23,17 @@ data$badextra <- factor(data$badextra, levels=c(0,1), labels=c("Normal","Gehoben
 data$kueche <- factor(data$kueche, levels=c(0,1), labels=c("Normal","Gehoben"))
 data$bez <- factor(data$bez)
 
+data <- data[,-1]
+
 ## Run LiMo
 mod <- lm(data$nmqm~., data=data)
-sort(mod$coefficients)
-mod$coefficients["wohngutGut"]
+summary(mod)
+t <- summary(mod)
+t$coefficients[,4]
+round(t$coefficients[t$coefficients[,4]<0.2,],3)
+
+mod2 <- lm(nmqm~wfl+rooms+bj+wohngut+zh0+badkach0+badextra+kueche, data=data)
+summary(mod2)
 
 ## Plot Coefficients
 plot(x=1:length(mod$coefficients),y=sort(mod$coefficients), axes = F)
