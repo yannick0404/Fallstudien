@@ -6,6 +6,7 @@ str(data)
 
 
 
+
 #summary(data)
 #plot(data$wfl, data$nmqm)
 
@@ -40,3 +41,4 @@ plot(x=1:length(mod$coefficients),y=sort(mod$coefficients), axes = F)
 axis(1, at=1:length(mod$coefficients), labels = names(sort(mod$coefficients)))
 axis(2)
 box()
+
