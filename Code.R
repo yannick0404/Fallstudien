@@ -66,7 +66,7 @@ barplot(table(kueche), xlab = "Ausstattung der Kueche")
 detach(data)
 
 
-data <- data[,-1]
+
 
 ## Ueberpruefung der Voraussetzungen
 cor(data[2:5])
@@ -104,7 +104,7 @@ summary(lm(nmqm ~ as.factor(zh0) ,data = data))
 plot(nmqm ~I(log(wfl)), data = data)
 
 
-
+data <- data[,-1]
 ## Run LiMo
 mod <- lm(data$nmqm~., data=data)
 summary(mod)
