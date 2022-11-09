@@ -68,6 +68,43 @@ detach(data)
 
 data <- data[,-1]
 
+## Ueberpruefung der Voraussetzungen
+cor(data[2:5])
+# eta koeff fuer nominale oder so?
+
+
+## Lineares Modell
+mod_all <- lm(nmqm ~ wfl + rooms + bj + bez + wohngut + wohnbest + ww0 + zh0 + 
+                badkach0 + badextra + kueche, data = data)
+summary(mod_all)
+
+
+# Probieren
+mod_opt <- lm(nmqm ~ rooms + I(bj-mean(bj)) + wohngut + wohnbest + ww0 + zh0 + 
+             badkach0 + badextra + kueche, data = data)
+summary(mod_opt)
+plot(mod_opt) 
+
+mod_opt2 <- lm(nmqm ~ rooms + I(bj-mean(bj)) + wohngut + wohnbest + ww0 + zh0 + 
+                 badkach0 + badextra + kueche, data = data)
+
+summary(mod_opt2)
+
+plot(data$nmqm, predict(mod_opt2))
+
+# data$zh0[data$zh0 == 0] <- -1 
+# Ueber einstimmung mit factor Ergebnissen
+summary(lm(nmqm ~ zh0 ,data = data))
+summary(lm(nmqm ~ as.factor(zh0) ,data = data))
+
+# Differenzieller effekt beachten bei Bezirken 
+# aufpassen bei Interpretation bei bezug
+
+
+plot(nmqm ~I(log(wfl)), data = data)
+
+
+
 ## Run LiMo
 mod <- lm(data$nmqm~., data=data)
 summary(mod)
@@ -84,3 +121,20 @@ axis(1, at=1:length(mod$coefficients), labels = names(sort(mod$coefficients)))
 axis(2)
 box()
 
+
+# Probieren geht ueber studieren
+#######################################################
+
+
+
+plot(hatvalues(test), type = "h")
+
+plot(cooks.distance(test), type = "h")
+
+which(cooks.distance(test) > 0.01)
+data[1975,]
+
+
+sum(lm(nmqm ~ bez, data = data)$coeff)
+
+# Problem mit Rang s. S 138 im Script
