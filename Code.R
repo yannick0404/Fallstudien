@@ -14,8 +14,8 @@ summary(data)
 fact.mietspiegel <- function() {
   if(is.factor(data$wohngut)) stop("schon fertig")
   else {
-    data$wohngut <<- factor(data$wohngut, levels=c(0,1), labels=c("Schlecht", "Gut"))
-    data$wohnbest <<- factor(data$wohnbest, levels=c(0,1), labels=c("SchlechtOderGut", "Best"))
+    data$wohngut <<- factor(data$wohngut, levels=c(0,1), labels=c("andere Lagekategorie", "Gut"))
+    data$wohnbest <<- factor(data$wohnbest, levels=c(0,1), labels=c("andere Lagekategorie", "Best"))
     data$ww0 <<- factor(data$ww0, levels=c(0,1), labels=c("Ja","Nein"))
     data$zh0 <<- factor(data$zh0, levels=c(0,1), labels=c("Ja","Nein"))
     data$badkach0 <<- factor(data$badkach0, levels=c(0,1), labels=c("Gefliest","Ungefliest"))
